@@ -46,7 +46,8 @@ namespace Grocery.App.ViewModels
         [RelayCommand]
         private void AddUser()
         {
-            Application.Current.MainPage = new AddUserView();
+            var addUserViewModel = new AddUserViewModel(_authService, _global);
+            Application.Current!.MainPage = new AddUserView(addUserViewModel);
         }
     }
 }
