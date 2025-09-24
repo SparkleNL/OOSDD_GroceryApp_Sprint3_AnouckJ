@@ -15,9 +15,10 @@ namespace Grocery.App.ViewModels
         private readonly IGroceryListItemsService _groceryListItemsService;
         private readonly IProductService _productService;
         private readonly IFileSaverService _fileSaverService;
-        
+
         public ObservableCollection<GroceryListItem> MyGroceryListItems { get; set; } = [];
         public ObservableCollection<Product> AvailableProducts { get; set; } = [];
+        private ObservableCollection<Product> _allAvailableProducts = [];
 
         [ObservableProperty]
         GroceryList groceryList = new(0, "None", DateOnly.MinValue, "", 0);
@@ -42,9 +43,13 @@ namespace Grocery.App.ViewModels
         private void GetAvailableProducts()
         {
             AvailableProducts.Clear();
+            _allAvailableProducts.Clear();
             foreach (Product p in _productService.GetAll())
-                if (MyGroceryListItems.FirstOrDefault(g => g.ProductId == p.Id) == null  && p.Stock > 0)
+                if (MyGroceryListItems.FirstOrDefault(g => g.ProductId == p.Id) == null && p.Stock > 0)
+                {
                     AvailableProducts.Add(p);
+                    _allAvailableProducts.Add(p);
+                }
         }
 
         partial void OnGroceryListChanged(GroceryList value)
@@ -86,5 +91,26 @@ namespace Grocery.App.ViewModels
             }
         }
 
+        [RelayCommand]
+        public void SearchItem(string searchTerm)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                // Show all products when search is empty
+                AvailableProducts.Clear();
+                foreach (var product in _allAvailableProducts)
+                    AvailableProducts.Add(product);
+            }
+            else
+            {
+                // Filter products based on search term
+                var filtered = _allAvailableProducts.Where(item =>
+                    item.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+
+                AvailableProducts.Clear();
+                foreach (var product in filtered)
+                    AvailableProducts.Add(product);
+            }
+        }
     }
 }

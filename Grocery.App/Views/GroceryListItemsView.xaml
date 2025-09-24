@@ -57,7 +57,7 @@
             </CollectionView>
         </Border>
 
-        <SearchBar x:Name="searchBar" Grid.Column="1" Grid.Row ="0" WidthRequest="340" Placeholder="Search Item..." />
+        <SearchBar x:Name="searchBar" Grid.Column="1" Grid.Row ="0" WidthRequest="340" Placeholder="Search Item..." SearchCommand="{Binding SearchItemCommand}" SearchCommandParameter="{Binding Source={x:Reference Name=searchBar}, Path=Text}"/>
 
         <Border Grid.Row="1" Grid.Column="1" Stroke="#C49B33" StrokeThickness="4" Padding="5" Margin="5" HorizontalOptions="Center">
             <StackLayout>
