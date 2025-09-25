@@ -12,6 +12,6 @@
         <Button Text="Login" Command="{Binding LoginCommand}" />
         <Label Text="{Binding LoginMessage}" TextColor="Red" />
         <Label Text="No account yet?" Margin="2, 10, 0, 0"></Label>
-        <Button Text="Add User" Margin="0, 15, 0, 0" Command="{Binding AddUserCommand }"/>
+        <Button Text="Add User" Margin="0, 15, 0, 0" Command="{Binding NavigateAddUserCommand }"/>
     </StackLayout>
 </ContentPage>
