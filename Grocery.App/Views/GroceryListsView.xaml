@@ -8,6 +8,7 @@
     <Shell.TitleView>
         <Grid>
             <Label Text="Boodschappenlijsten" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Button Text="Log Out" Command ="{Binding LogOutCommand}" WidthRequest="150" HorizontalOptions="End" Margin="0, 1, 10, 3"/> 
         </Grid>
     </Shell.TitleView>
 

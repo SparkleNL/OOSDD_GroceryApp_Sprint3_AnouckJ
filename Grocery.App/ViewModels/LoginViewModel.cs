@@ -1,6 +1,7 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Grocery.App.Views;
 using Grocery.Core.Interfaces.Services;
 using Grocery.Core.Models;
 
@@ -40,6 +41,13 @@ namespace Grocery.App.ViewModels
             {
                 LoginMessage = "Ongeldige inloggegevens.";
             }
+        }
+
+        [RelayCommand]
+        private void NavigateAddUser()
+        {
+            var addUserViewModel = new AddUserViewModel(_authService, _global);
+            Application.Current!.MainPage = new AddUserView(addUserViewModel);
         }
     }
 }
