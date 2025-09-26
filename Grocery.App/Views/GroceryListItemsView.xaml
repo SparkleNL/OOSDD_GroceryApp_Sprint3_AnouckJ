@@ -29,6 +29,7 @@
                     <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
                 </CollectionView.ItemsLayout>
 
+				
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:GroceryListItem">
                         <Grid>
@@ -51,6 +52,18 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </Border>
+
+		<SearchBar
+            x:Name="searchBar"
+            Placeholder="Zoek product"
+			BackgroundColor="Blue"
+			HeightRequest="44"
+			FontSize="16"
+			Margin="16,8"
+            SearchCommand="{Binding SearchCommand}"
+            SearchCommandParameter="{Binding Source={x:Reference searchBar}, Path=Text}" 
+		/>
+
 
         <Border Grid.Row="1" Grid.Column="1" Stroke="#C49B33" StrokeThickness="4" Padding="5" Margin="5" HorizontalOptions="Center">
             <StackLayout>
