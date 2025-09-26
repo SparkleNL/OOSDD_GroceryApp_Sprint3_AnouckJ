@@ -1,0 +1,30 @@
+name: .NET Unit Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # werkt prima voor gewone unit tests
+    steps:
+      - name: Haal de repository op
+        uses: actions/checkout@v4
+
+      - name: Installeer .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Herstel afhankelijkheden (alleen TestCore)
+        run: dotnet restore TestCore/TestCore.csproj
+
+      - name: Bouw het testproject
+        run: dotnet build TestCore/TestCore.csproj --configuration Release --no-restore
+
+      - name: Draai de unit tests
+        run: dotnet test TestCore/TestCore.csproj --configuration Release --no-build --verbosity normal
